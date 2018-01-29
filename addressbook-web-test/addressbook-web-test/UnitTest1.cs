@@ -88,7 +88,7 @@ namespace SeleniumTests
             driver.FindElement(By.Name("phone2")).SendKeys("2");
             driver.FindElement(By.Name("notes")).Clear();
             driver.FindElement(By.Name("notes")).SendKeys("2");
-            // ERROR: Caught exception [Error: Dom locators are not implemented yet!]
+            driver.FindElement(By.XPath("(//input[@name='submit'])[2]")).Click();
             driver.FindElement(By.LinkText("Logout")).Click();
         }
         private bool IsElementPresent(By by)
