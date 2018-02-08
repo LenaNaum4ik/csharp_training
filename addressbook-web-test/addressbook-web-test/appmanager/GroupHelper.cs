@@ -1,0 +1,47 @@
+﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+
+
+namespace WebAddressbookTests
+{
+    public class GroupHelper : HelperBase
+    {
+        private new IWebDriver driver;
+
+        public GroupHelper(IWebDriver driver) : base(driver)
+        {
+            this.driver = new ChromeDriver();
+        }   
+         
+        public void InitNewGroupCreation()
+        {
+            driver.FindElement(By.Name("new")).Click();
+            driver.FindElement(By.Name("group_name")).Clear();
+        }
+        public void FillGroupForm(GroupData group)
+        {
+            driver.FindElement(By.Name("group_name")).SendKeys(group.Name);
+            driver.FindElement(By.Name("group_header")).Clear();
+            driver.FindElement(By.Name("group_header")).SendKeys(group.Header);
+            driver.FindElement(By.Name("group_footer")).Clear();
+            driver.FindElement(By.Name("group_footer")).SendKeys(group.Footer);
+        }
+        public void SubmitGroupCreation()
+        {
+            driver.FindElement(By.Name("submit")).Click();
+        }
+        public void ReturnGroupPage()
+        {
+            driver.FindElement(By.LinkText("group page")).Click();
+        }
+        public void SelectGroup(int index)
+        {
+            driver.FindElement(By.Name("selected[]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+        }
+        public void RemoveGroup()
+        {
+            driver.FindElement(By.Name("delete")).Click();
+        }
+    }
+}
