@@ -18,6 +18,15 @@ namespace WebAddressbookTests
             return this;
 
         }
+        public ContactHelper RemoveContact(int p)
+        {
+            manager.Navigator.GoToContactPage();
+
+            SelectContact(p);
+            RemoveContact();
+            return this;
+
+        }
 
         public ContactHelper InitNewCreation()
         {

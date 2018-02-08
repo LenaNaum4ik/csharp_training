@@ -15,9 +15,13 @@ namespace WebAddressbookTests
         {
            driver.Navigate().GoToUrl(baseURL + "/addressbook/");
         }
-        public void GoToGroupsPage()
+        public void GoToGroupPage()
         {
          driver.FindElement(By.LinkText("groups")).Click();
+        }
+        public void GoToContactPage()
+        {
+            driver.FindElement(By.LinkText("home")).Click();
         }
         public void Logout()
         {

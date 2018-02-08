@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using System;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
 
@@ -13,7 +14,7 @@ namespace WebAddressbookTests
 
         public GroupHelper CreateGroup(GroupData group)
         {
-            manager.Navigator.GoToGroupsPage();
+            manager.Navigator.GoToContactPage();
             InitNewGroupCreation();
             FillGroupForm(group);
             SubmitGroupCreation();
@@ -21,8 +22,38 @@ namespace WebAddressbookTests
             return this;
 
         }
+        public GroupHelper Remove(int p)
+        {
+            manager.Navigator.GoToContactPage();            
+            SelectGroup(p);
+            RemoveGroup();
+            ReturnGroupPage();
+            return this;
 
-         
+        }
+
+        public GroupHelper Modify(int p, GroupData newData)
+        {
+            manager.Navigator.GoToContactPage();
+            InitGroupModification();
+            FillGroupForm(newData);
+            SubmitGroupCModification();
+            ReturnGroupPage();
+            return this;
+        }
+
+        public GroupHelper SubmitGroupCModification()
+        {
+            driver.FindElement(By.Name("update")).Click();
+            return this;
+        }
+
+        public GroupHelper InitGroupModification()
+        {
+            driver.FindElement(By.Name("edit")).Click();
+            return this;
+        }
+
         public GroupHelper InitNewGroupCreation()           
         {
             driver.FindElement(By.Name("new")).Click();

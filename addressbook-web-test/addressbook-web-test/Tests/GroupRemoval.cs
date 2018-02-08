@@ -10,13 +10,9 @@ namespace WebAddressbookTests
     {
         [Test]
         public void GroupRemovalTest()
-        {
-            
-            app.Navigator.GoToGroupsPage();
-            app.Groups
-                .SelectGroup(1)
-                .RemoveGroup()
-                .ReturnGroupPage();
+        {           
+            app.Navigator.GoToContactPage();
+            app.Groups.Remove(1);                
             app.Navigator.Logout();
         }
     }
