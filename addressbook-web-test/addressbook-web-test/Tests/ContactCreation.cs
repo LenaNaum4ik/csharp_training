@@ -11,10 +11,8 @@ namespace WebAddressbookTests
     {        
         [Test]
         public void ContactCreation()
-        {
-            app.Navigator.GoToHomePage();
-            app.Auth.Login(new AccountData("admin", "secret"));
-            app.Contacts.InitNewCreation();
+        {            
+           
             ContactData contact = new ContactData("555");
             contact.Middlename = "777";
             contact.Lastname = "888";
@@ -33,10 +31,35 @@ namespace WebAddressbookTests
             contact.Address2 = "888";
             contact.Phone2 = "888";
             contact.Notes = "888";
-            app.Contacts.FillContactForm(contact);
-            app.Contacts.SubmitContactCreation();
-            app.Contacts.ReturnContactPage();
+
+            app.Contacts.CreateContact(contact);
             app.Navigator.Logout();
-        }         
+        }
+        [Test]
+        public void EmptyContactCreation()
+        {
+
+            ContactData contact = new ContactData("");
+            contact.Middlename = "";
+            contact.Lastname = "";
+            contact.Nickname = "";
+            contact.Title = "";
+            contact.Company = "";
+            contact.Address = "";
+            contact.Home = "";
+            contact.Mobile = "";
+            contact.Work = "";
+            contact.Fax = "";
+            contact.Email = "";
+            contact.Email2 = "";
+            contact.Email3 = "";
+            contact.Homepage = "";
+            contact.Address2 = "";
+            contact.Phone2 = "";
+            contact.Notes = "";
+
+            app.Contacts.CreateContact(contact);
+            app.Navigator.Logout();
+        }
     }
 }

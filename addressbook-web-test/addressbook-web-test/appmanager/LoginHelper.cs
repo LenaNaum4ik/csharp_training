@@ -5,12 +5,9 @@ using OpenQA.Selenium.Chrome;
 namespace WebAddressbookTests
 {
     public class LoginHelper : HelperBase        
-    {
-        private new IWebDriver driver;
-
-        public LoginHelper(IWebDriver driver) : base(driver)
-        {
-            this.driver = new ChromeDriver();
+    {      
+        public LoginHelper(ApplicationManager manager) : base(manager)
+        {            
         }
         public void Login(AccountData account)
         {

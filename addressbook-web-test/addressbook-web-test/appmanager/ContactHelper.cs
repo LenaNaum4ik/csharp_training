@@ -5,18 +5,26 @@ using OpenQA.Selenium.Chrome;
 namespace WebAddressbookTests
 {
     public class ContactHelper : HelperBase
-    {
-        private new IWebDriver driver;
-
-        public ContactHelper(IWebDriver driver) : base(driver)
-        {
-            this.driver = new ChromeDriver();
+    {       
+        public ContactHelper(ApplicationManager manager) : base(manager)
+        {            
         }
-        public void InitNewCreation()
+        public ContactHelper CreateContact(ContactData contact)
+        {
+            InitNewCreation();
+            FillContactForm(contact);
+            SubmitContactCreation();
+            ReturnContactPage();
+            return this;
+
+        }
+
+        public ContactHelper InitNewCreation()
         {
             driver.FindElement(By.LinkText("add new")).Click();
+            return this;
         }
-        public void FillContactForm(ContactData contact)
+        public ContactHelper FillContactForm(ContactData contact)
         {
             driver.FindElement(By.Name("firstname")).Clear();
             driver.FindElement(By.Name("firstname")).SendKeys(contact.Firstname);
@@ -54,23 +62,28 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("phone2")).SendKeys(contact.Phone2);
             driver.FindElement(By.Name("notes")).Clear();
             driver.FindElement(By.Name("notes")).SendKeys(contact.Notes);
+            return this;
         }
-        public void SubmitContactCreation()
+        public ContactHelper SubmitContactCreation()
         {
             driver.FindElement(By.XPath("(//input[@name='submit'])[2]")).Click();
+            return this;
         }
-        public void ReturnContactPage()
+        public ContactHelper ReturnContactPage()
         {
             driver.FindElement(By.LinkText("home page")).Click();
+            return this;
         }
-        public void SelectContact(int index)
+        public ContactHelper SelectContact(int index)
         {
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            return this;
         }
-        public void RemoveContact()
+        public ContactHelper RemoveContact()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             driver.SwitchTo().Alert().Accept();
+            return this;
         }
     }
 }
