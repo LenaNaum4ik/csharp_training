@@ -12,7 +12,7 @@ namespace WebAddressbookTests
         [Test]
         public void ContactRemoval()
         {
-            app.Navigator.GoToContactPage();
+            app.Navigator.GoToHomePage();
             app.Contacts.RemoveContact(1);                
             //app.Navigator.Logout();
         }                             

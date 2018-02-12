@@ -32,8 +32,7 @@ namespace WebAddressbookTests
             contact.Phone2 = "888";
             contact.Notes = "888";
 
-            app.Contacts.CreateContact(contact);
-           // app.Navigator.Logout();
+            app.Contacts.CreateContact(contact);           
         }
         [Test]
         public void EmptyContactCreation()
@@ -58,8 +57,7 @@ namespace WebAddressbookTests
             contact.Phone2 = "";
             contact.Notes = "";
 
-            app.Contacts.CreateContact(contact);
-           // app.Navigator.Logout();
+            app.Contacts.CreateContact(contact);           
         }
     }
 }

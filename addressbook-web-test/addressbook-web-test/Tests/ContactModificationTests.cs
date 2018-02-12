@@ -30,8 +30,7 @@ namespace WebAddressbookTests
             contact.Phone2 = "0";
             contact.Notes = "0";                       
 
-            app.Contacts.Modify(contact);
-           // app.Navigator.Logout();
+            app.Contacts.Modify(contact);          
         }
     }
 }

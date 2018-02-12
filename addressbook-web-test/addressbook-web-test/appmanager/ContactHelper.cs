@@ -20,7 +20,7 @@ namespace WebAddressbookTests
         }
         public ContactHelper RemoveContact(int p)
         {
-            manager.Navigator.GoToContactPage();
+            manager.Navigator.GoToHomePage();
 
             SelectContact(p);
             RemoveContact();
@@ -29,7 +29,7 @@ namespace WebAddressbookTests
         }
         public ContactHelper Modify(ContactData contact)
         {
-            manager.Navigator.GoToContactPage();
+            manager.Navigator.GoToHomePage();
             InitContactModification();
             FillContactForm(contact);
             SubmitContactModification();
@@ -69,8 +69,8 @@ namespace WebAddressbookTests
             Type(By.Name("work"), contact.Work);
             Type(By.Name("fax"), contact.Fax);
             Type(By.Name("email"), contact.Email);
-            Type(By.Name("emai2"), contact.Email2);
-            Type(By.Name("emai3"), contact.Email3);
+            Type(By.Name("email2"), contact.Email2);
+            Type(By.Name("email3"), contact.Email3);
             Type(By.Name("homepage"), contact.Homepage);
             Type(By.Name("address2"), contact.Address2);
             Type(By.Name("phone2"), contact.Phone2);
