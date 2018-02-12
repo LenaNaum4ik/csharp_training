@@ -31,7 +31,7 @@ namespace WebAddressbookTests
             contact.Notes = "0";                       
 
             app.Contacts.Modify(contact);
-            app.Navigator.Logout();
+           // app.Navigator.Logout();
         }
     }
 }

@@ -6,14 +6,14 @@ using NUnit.Framework;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class GroupRemoval : TestBase
+    public class GroupRemoval : AuthTestBase
     {
         [Test]
         public void GroupRemovalTest()
         {           
             app.Navigator.OpenGroupPage();
             app.Groups.Remove(1);                
-            app.Navigator.Logout();
+            //app.Navigator.Logout();
         }
     }
 }

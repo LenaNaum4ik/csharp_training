@@ -22,10 +22,6 @@ namespace WebAddressbookTests
         public void GoToContactPage()
         {
             driver.FindElement(By.LinkText("home")).Click();
-        }
-        public void Logout()
-        {
-            driver.FindElement(By.LinkText("Logout")).Click();
-        }
+        }        
     }
 }

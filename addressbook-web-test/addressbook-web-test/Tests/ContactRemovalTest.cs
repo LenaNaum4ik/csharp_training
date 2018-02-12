@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class ContactRemovalTest : TestBase
+    public class ContactRemovalTest : AuthTestBase
     {     
 
         [Test]
@@ -14,7 +14,7 @@ namespace WebAddressbookTests
         {
             app.Navigator.GoToContactPage();
             app.Contacts.RemoveContact(1);                
-            app.Navigator.Logout();
+            //app.Navigator.Logout();
         }                             
     }
 }
