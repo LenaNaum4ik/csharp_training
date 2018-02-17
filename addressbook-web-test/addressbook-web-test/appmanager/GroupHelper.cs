@@ -22,10 +22,10 @@ namespace WebAddressbookTests
             return this;
 
         }
-        public GroupHelper Remove(int p)
+        public GroupHelper Remove(int p, GroupData group)
         {
             manager.Navigator.OpenGroupPage();
-            CheckingGroupExists(p);
+            SelectGroup(p, group);
             RemoveGroup();
             ReturnGroupPage();
             return this;
@@ -37,9 +37,10 @@ namespace WebAddressbookTests
             return IsElementPresent(By.Name("selected[]"));
         }
 
-        public GroupHelper Modify(int p, GroupData newData)
+        public GroupHelper Modify(int p, GroupData group, GroupData newData)
         {
             manager.Navigator.OpenGroupPage();
+            SelectGroup(p, group);
             InitGroupModification();
             FillGroupForm(newData);
             SubmitGroupModification();
@@ -84,33 +85,23 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public GroupHelper CheckingGroupExists(int index)
-        {            
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
-            return this;
-        }
-
-        public GroupHelper CheckingGroupExists(int p, GroupData group)
+        public GroupHelper SelectGroup(int index, GroupData group)
         {
-            if (GroupExists(p))
+            //driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            if (TheGroupExists())
             {
-                if (GroupExists(p))
-                {
-                    return CheckingGroupExists(p);
-                }
-                else
-                {
-                    return CreateGroup(group);
-                }
+                driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+                 
             }
-            CheckingGroupExists(p);
+            else
+            {                
+                CreateGroup(group);
+                driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            }
+            
             return this;
-        }
-
-        public bool GroupExists(int index)
-        {
-            return IsElementPresent(By.XPath("(//input[@name='selected[]'])[" + index + "]"));
-        }
+        }     
+              
 
         public GroupHelper RemoveGroup()
         {

@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using System;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
 
@@ -18,18 +19,19 @@ namespace WebAddressbookTests
             return this;
 
         }
-        public ContactHelper RemoveContact(int p)
+        public ContactHelper RemoveContact(int p, ContactData contact)
         {
             manager.Navigator.GoToHomePage();
 
-            SelectContact(p);
+            SelectContact(p, contact);
             RemoveContact();
             return this;
 
         }
-        public ContactHelper Modify(ContactData contact)
+        public ContactHelper Modify(int p, ContactData contact)
         {
             manager.Navigator.GoToHomePage();
+            SelectContact(p, contact);
             InitContactModification();
             FillContactForm(contact);
             SubmitContactModification();
@@ -87,11 +89,24 @@ namespace WebAddressbookTests
             driver.FindElement(By.LinkText("home page")).Click();
             return this;
         }
-        public ContactHelper SelectContact(int index)
+        public ContactHelper SelectContact(int index, ContactData contact)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            if (ContacAvailabilityt())
+            {
+                driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            }
+            else
+            {
+                CreateContact(contact);
+                driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            }
             return this;
+        }        
+        private bool ContacAvailabilityt()
+        {
+            return IsElementPresent(By.Name("selected[]"));
         }
+
         public ContactHelper RemoveContact()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();

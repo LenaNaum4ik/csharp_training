@@ -12,8 +12,10 @@ namespace WebAddressbookTests
         [Test]
         public void ContactRemoval()
         {
+            ContactData contact = new ContactData("555");
+
             app.Navigator.GoToHomePage();
-            app.Contacts.RemoveContact(1);                
+            app.Contacts.RemoveContact(1, contact);                
             //app.Navigator.Logout();
         }                             
     }

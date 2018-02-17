@@ -10,9 +10,11 @@ namespace WebAddressbookTests
     {
         [Test]
         public void GroupRemovalTest()
-        {           
+        {
+            GroupData group = new GroupData("ddd");
+
             app.Navigator.OpenGroupPage();
-            app.Groups.Remove(1);             
+            app.Groups.Remove(1, group);             
             
         }
     }
