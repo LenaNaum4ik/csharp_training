@@ -1,7 +1,7 @@
 ﻿using System;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-
+using System.Collections.Generic;
 
 namespace WebAddressbookTests
 {
@@ -28,15 +28,29 @@ namespace WebAddressbookTests
             return this;
 
         }
-        public ContactHelper Modify(int p, ContactData contact)
+        public ContactHelper Modify(int p, ContactData contact, ContactData newData)
         {
             manager.Navigator.GoToHomePage();
             SelectContact(p, contact);
             InitContactModification();
-            FillContactForm(contact);
+            FillContactForm(newData);
             SubmitContactModification();
             ReturnContactPage();
             return this;
+        }
+
+        public List<ContactData> GetContactList()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            manager.Navigator.GoToHomePage();
+            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("[name=entry]"));
+            foreach (IWebElement element in elements)
+            {
+                string lastName = element.FindElement(By.CssSelector("[name=entry] td:nth-of-type(2)")).Text;
+                string firstName = element.FindElement(By.CssSelector("[name=entry] td:nth-of-type(3)")).Text; 
+                contacts.Add(new ContactData(firstName, lastName));
+            }
+            return contacts;
         }
 
         public ContactHelper SubmitContactModification()
@@ -93,12 +107,12 @@ namespace WebAddressbookTests
         {
             if (ContacAvailabilityt())
             {
-                driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+                driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index+1) + "]")).Click();
             }
             else
             {
                 CreateContact(contact);
-                driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+                driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
             }
             return this;
         }        

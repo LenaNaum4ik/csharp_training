@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
@@ -22,6 +23,19 @@ namespace WebAddressbookTests
             return this;
 
         }
+
+        public List<GroupData> GetGroupList()
+        {
+            List<GroupData> groups = new List<GroupData>();
+            manager.Navigator.OpenGroupPage();
+            ICollection<IWebElement>elements = driver.FindElements(By.CssSelector("span.group"));
+            foreach (IWebElement element in elements)
+            {
+                groups.Add(new GroupData(element.Text));
+            }
+            return groups;
+        }
+
         public GroupHelper Remove(int p, GroupData group)
         {
             manager.Navigator.OpenGroupPage();
@@ -90,13 +104,13 @@ namespace WebAddressbookTests
             //driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
             if (TheGroupExists())
             {
-                driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+                driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
                  
             }
             else
             {                
                 CreateGroup(group);
-                driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+                driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index+1) + "]")).Click();
             }
             
             return this;

@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace WebAddressbookTests
 {
-    public class ContactData
+    public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
         private string firstname;
         private string middlename = "";
-        private string lastname = "";
+        private string lastname;
         private string nickname = "";
         private string title = "";
         private string company = "";
@@ -26,13 +26,48 @@ namespace WebAddressbookTests
         private string address2 = "";
         private string phone2 = "";
         private string notes = "";
+        private string text;
 
-        public ContactData(string firstname)
+        public ContactData(string firstname, string lastname)
         {
           this.firstname = firstname;
+          this.lastname = lastname;
 
         }
 
+        public bool Equals(ContactData other)
+        {
+            if (Object.ReferenceEquals(other, null))
+            {
+                return false;
+            }
+            if (Object.ReferenceEquals(this, other))
+            {
+                return true;
+            }
+            return Firstname == other.Firstname && Lastname == other.Lastname;
+            
+        }
+
+        public override int GetHashCode()
+        {
+            return
+            Firstname.GetHashCode() + Lastname.GetHashCode();
+            
+        }
+        public override string ToString() 
+        {
+            return FirstName + "," + LastName;
+        }
+       
+        public int CompareTo(ContactData other)
+        {
+            if (Object.ReferenceEquals(other, null))
+            {
+                return 1;
+            }
+            return (FirstName + "," + LastName).CompareTo(other.FirstName + "," + other.LastName);
+        }
         public ContactData(string firstname, string middlename, string lastname, string nickname, string title, string company, string address, string home, string mobile, string work, string fax, string email, string email2, string email3, string homepage, string address2, string phone2, string notes)
         {
             this.firstname = firstname;
@@ -54,6 +89,11 @@ namespace WebAddressbookTests
             this.phone2 = phone2;
             this.notes = notes;
 
+        }
+
+        public ContactData(string text)
+        {
+            this.text = text;
         }
 
         public string Firstname
@@ -289,5 +329,8 @@ namespace WebAddressbookTests
                 notes = value;
             }
         }
+
+        public string FirstName { get;  set; }
+        public string LastName { get;  set; }
     }
 }
