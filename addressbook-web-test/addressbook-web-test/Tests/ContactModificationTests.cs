@@ -18,8 +18,8 @@ namespace WebAddressbookTests
 
             List<ContactData> oldContacts = app.Contacts.GetContactList();
 
-            app.Navigator.GoToHomePage();
-            app.Contacts.Modify(0, contact, newData);
+            app.Contacts.СheckСhangeableСontact(contact);
+            app.Contacts.Modify(0, newData);
 
             List<ContactData> newContacts = app.Contacts.GetContactList();
             oldContacts[0].Firstname = newData.Firstname;

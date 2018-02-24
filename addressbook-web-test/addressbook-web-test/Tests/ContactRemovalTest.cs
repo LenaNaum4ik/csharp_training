@@ -17,7 +17,7 @@ namespace WebAddressbookTests
 
             List<ContactData> oldContacts = app.Contacts.GetContactList();
 
-            app.Navigator.GoToHomePage();
+            app.Contacts.СhecContacAvailabilityt(0, contact);
             app.Contacts.RemoveContact(0, contact);
 
             List<ContactData> newContacts = app.Contacts.GetContactList();

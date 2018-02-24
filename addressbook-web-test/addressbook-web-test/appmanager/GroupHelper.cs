@@ -36,25 +36,39 @@ namespace WebAddressbookTests
             return groups;
         }
 
-        public GroupHelper Remove(int p, GroupData group)
-        {
-            manager.Navigator.OpenGroupPage();
-            SelectGroup(p, group);
+        public GroupHelper Remove(int p)
+        {           
             RemoveGroup();
             ReturnGroupPage();
-            return this;
-            
+            return this;            
         }
+
+        public GroupHelper СheckGroupExists(int index, GroupData group)
+        {
+            manager.Navigator.OpenGroupPage();
+            if (TheGroupExists())
+              {                
+                driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
+              }
+            else
+            {
+                CreateGroup(group);
+               driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index+1) + "]")).Click();
+            }
+            
+           return this;
+
+       }
 
         private bool TheGroupExists()
         {
             return IsElementPresent(By.Name("selected[]"));
         }
 
-        public GroupHelper Modify(int p, GroupData group, GroupData newData)
+        public GroupHelper Modify(int p, GroupData newData)
         {
-            manager.Navigator.OpenGroupPage();
-            SelectGroup(p, group);
+            //manager.Navigator.OpenGroupPage();
+            //SelectGroup(p);
             InitGroupModification();
             FillGroupForm(newData);
             SubmitGroupModification();
@@ -99,20 +113,10 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public GroupHelper SelectGroup(int index, GroupData group)
+        public GroupHelper SelectGroup(int index)
         {
-            //driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
-            if (TheGroupExists())
-            {
-                driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
-                 
-            }
-            else
-            {                
-                CreateGroup(group);
-                driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index+1) + "]")).Click();
-            }
-            
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
+
             return this;
         }     
               

@@ -18,8 +18,8 @@ namespace WebAddressbookTests
             newData.Footer = "yyyyyy";
 
             List<GroupData> oldGroups = app.Groups.GetGroupList();
-
-            app.Groups.Modify(0, group, newData);
+            app.Groups.СheckGroupExists(0, group);
+            app.Groups.Modify(0, newData);
 
             List<GroupData> newGroups = app.Groups.GetGroupList();
             oldGroups[0].Name=newData.Name;

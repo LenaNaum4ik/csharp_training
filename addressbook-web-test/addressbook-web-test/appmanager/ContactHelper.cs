@@ -20,24 +20,36 @@ namespace WebAddressbookTests
 
         }
         public ContactHelper RemoveContact(int p, ContactData contact)
-        {
-            manager.Navigator.GoToHomePage();
-
-            SelectContact(p, contact);
+        {                        
             RemoveContact();
             return this;
 
         }
-        public ContactHelper Modify(int p, ContactData contact, ContactData newData)
-        {
-            manager.Navigator.GoToHomePage();
-            SelectContact(p, contact);
-            InitContactModification();
+        public ContactHelper Modify(int p, ContactData newData)
+        {          
             FillContactForm(newData);
             SubmitContactModification();
             ReturnContactPage();
             return this;
         }
+
+        public ContactHelper СheckСhangeableСontact(ContactData contact)
+        {
+            manager.Navigator.GoToHomePage();
+            if (ContacAvailabilityt())
+            {
+                driver.FindElement(By.CssSelector("img[alt=\"Edit\"]")).Click();
+            }           
+            
+            else
+            {
+                CreateContact(contact);
+                driver.FindElement(By.CssSelector("img[alt=\"Edit\"]")).Click();
+            }
+
+            return this;
+        }
+
 
         public List<ContactData> GetContactList()
         {
@@ -60,9 +72,10 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper InitContactModification()
+
+        public ContactHelper InitContactModification(int index)
         {
-            driver.FindElement(By.CssSelector("img[alt=\"Edit\"]")).Click();
+            driver.FindElement(By.CssSelector("img[alt=\"Edit\"]")).Click();           
             return this;
         }
 
@@ -103,19 +116,28 @@ namespace WebAddressbookTests
             driver.FindElement(By.LinkText("home page")).Click();
             return this;
         }
-        public ContactHelper SelectContact(int index, ContactData contact)
+        public ContactHelper SelectContact(int index)
         {
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
+            return this;
+        }
+
+        public ContactHelper СhecContacAvailabilityt(int index, ContactData contact)
+        {
+            manager.Navigator.GoToHomePage();
             if (ContacAvailabilityt())
             {
-                driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index+1) + "]")).Click();
+                driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
             }
             else
             {
                 CreateContact(contact);
                 driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
             }
+
             return this;
-        }        
+        }
+
         private bool ContacAvailabilityt()
         {
             return IsElementPresent(By.Name("selected[]"));
