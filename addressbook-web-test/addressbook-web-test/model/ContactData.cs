@@ -27,6 +27,7 @@ namespace WebAddressbookTests
         private string phone2 = "";
         private string notes = "";
         private string text;
+        private string allPhones;
 
         public ContactData(string firstname, string lastname)
         {
@@ -332,5 +333,33 @@ namespace WebAddressbookTests
 
         public string FirstName { get;  set; }
         public string LastName { get;  set; }
+        public string AllPhones
+        {
+            get
+            {
+                if (allPhones != null)
+                {
+                    return allPhones;
+                }
+                else
+                {
+                    return (CleanUp(Home) + CleanUp(Mobile) + CleanUp(Work)).Trim();
+                }
+                
+            }
+            set
+            {
+                allPhones = value;
+            }
+        }
+
+        private string CleanUp(string phone)
+        {
+            if (phone==null|| phone == "")
+            {
+                return "";
+            }
+            return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "")+"\r\n";
+        }
     }
 }
