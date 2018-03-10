@@ -58,7 +58,7 @@ namespace WebAddressbookTests
         }
         public override string ToString() 
         {
-            return FirstName + "," + LastName;
+            return "firstName" + FirstName + "\nlastName = " + LastName + "\nmiddleName =" + MiddleName + "\nnickName  = " + NickName + "\ncompany  =" + Company + "\ntittle   = " + Tittle + "\naddress   =" + Address + "\nHome = " + Home + "\nmobile =" + Mobile + "\nwork  = " + Work + "\nfax  =" + Fax + "\nemail   = " + Email + "\nemail2  =" + Email2 + "\nemail3  =" + Email3 + "\nhomepage =" + Homepage + "\nphone2  =" + Phone2 + "\nnotes  =" + Notes;
         }
        
         public int CompareTo(ContactData other)
@@ -352,6 +352,10 @@ namespace WebAddressbookTests
                 allPhones = value;
             }
         }
+
+        public string MiddleName { get; internal set; }
+        public string NickName { get; internal set; }
+        public string Tittle { get; internal set; }
 
         private string CleanUp(string phone)
         {

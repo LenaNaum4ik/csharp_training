@@ -6,16 +6,27 @@ using System.Collections.Generic;
 
 namespace WebAddressbookTests
 {
+      
+
     [TestFixture]
     public class GroupCreationTest : AuthTestBase
     {
-        [Test]
-        public void GroupCreation()
+        public static IEnumerable<GroupData> RandomGroupDataProvider()
         {
-            
-            GroupData group = new GroupData("ddd");
-            group.Header = "jjj";
-            group.Footer = "fff";
+            List<GroupData> groups = new List<GroupData>();
+            for (int i = 0; i < 5; i++)
+            {
+                groups.Add(new GroupData(GenerateRandomString(30))
+                {
+                    Header = GenerateRandomString(100),
+                    Footer = GenerateRandomString(100)
+                });
+            }
+            return groups;
+        }
+        [Test, TestCaseSource("RandomGroupProvider")]
+        public void GroupCreation(GroupData group)
+        {    
 
             List<GroupData> oldGroups = app.Groups.GetGroupList();
 
@@ -27,23 +38,7 @@ namespace WebAddressbookTests
             newGroups.Sort(); 
             Assert.AreEqual(oldGroups, newGroups);
           
-        }
-        [Test]
-        public void EmptyGroupCreation()
-        {
-            
-            GroupData group = new GroupData("");
-            group.Header = "";
-            group.Footer = "";
-
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
-            app.Groups.CreateGroup(group);
-            List<GroupData> newGroups = app.Groups.GetGroupList();
-            oldGroups.Add(group);
-            oldGroups.Sort();
-            newGroups.Sort();
-            Assert.AreEqual(oldGroups, newGroups);
-
-        }
+        }       
+        
     }
 }

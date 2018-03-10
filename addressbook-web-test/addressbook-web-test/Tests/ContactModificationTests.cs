@@ -18,7 +18,7 @@ namespace WebAddressbookTests
 
             List<ContactData> oldContacts = app.Contacts.GetContactList();
 
-            app.Contacts.СheckСhangeableСontact(contact);
+            app.Contacts.СheckСhangeableСontact(0, contact);
             app.Contacts.Modify(0, newData);
 
             List<ContactData> newContacts = app.Contacts.GetContactList();

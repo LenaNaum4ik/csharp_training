@@ -14,8 +14,7 @@ namespace WebAddressbookTests
         internal ContactData GetContactInformationFromTable(int index)
         {
             manager.Navigator.GoToHomePage();
-            IList<IWebElement> cells = driver.FindElement(By.Name("entry"))[index]
-                .FindElement(By.TagName("td"));
+            IList<IWebElement> cells = driver.FindElement(By.Name("entry"))[index];             
             string lastName = cells[1].Text;
             string firstName = cells[2].Text;
             string address = cells[3].Text;
@@ -80,18 +79,18 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper СheckСhangeableСontact(ContactData contact)
+        public ContactHelper СheckСhangeableСontact(int index, ContactData contact)
         {
             manager.Navigator.GoToHomePage();
             if (ContacAvailabilityt())
             {
-                driver.FindElement(By.CssSelector("img[alt=\"Edit\"]")).Click();
+                driver.FindElement(By.XPath($"(//img[@title='Edit'])[" + (index + 1) + "]")).Click();
             }           
             
             else
             {
                 CreateContact(contact);
-                driver.FindElement(By.CssSelector("img[alt=\"Edit\"]")).Click();
+                driver.FindElement(By.XPath($"(//img[@title='Edit'])[" + (index + 1) + "]")).Click();
             }
 
             return this;
@@ -128,9 +127,8 @@ namespace WebAddressbookTests
 
         public ContactHelper InitContactModification(int index)
         {
-            driver.FindElement(By.Name("entry"))[index]
-                .FindElement(By.TagName("td"))[8]
-                .FindElement(By.TagName("a")).Click();
+          
+           driver.FindElement(By.XPath($"(//img[@title='Edit'])[" + (index + 1) + "]")).Click();
             return this;
         }
 
